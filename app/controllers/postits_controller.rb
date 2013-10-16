@@ -13,7 +13,7 @@ class PostitsController < ApplicationController
 		p params[:x]
 		p params[:y]
 		p "does this work"
-		@postit = Postit.new(x: params[:x], y: params[:y], content: "hello world")
+		@postit = Postit.new(x: params[:x], y: params[:y], content: params[:content])
 		@postit.save
 		redirect '/'
 	end

@@ -39,7 +39,7 @@ var increment = {
 var firstPostIt;
 
 
-// var callJson = $.getJSON("/all", 
+// var callJson = $.getJSON("/all",
 //   function(response){
 //     firstPostIt = response[0];
 //   })
@@ -48,19 +48,24 @@ var firstPostIt;
 function loadPostIts() {
   $.getJSON("/all",
     function(response) {
-      renderPostIts(response[0])
+      $.each(response, function(index, item){
 
+        renderPostIts(item)
+      })
 
     })
 }
 
 function renderPostIts(postIt) {
-  console.log("is this thing on?")
   console.log(postIt)
   $("#board").append("<div id='" + postIt["id"] + "' class='post-it'>")
   $("#"+postIt["id"]).draggable()
   $("#"+postIt["id"]).html("<div class='header'><span class='close'>[X]</span></div>")
   $("#"+postIt["id"]).append("<div class='content' contenteditable='true'>")
+  $("#"+postIt["id"]).children().text( function(index) {
+    if (index === 1){
+    return postIt["content"]}
+  });
   changePostItPos(postIt["id"],postIt["x"],postIt["y"])
   showPostIt(postIt["id"])
 }
